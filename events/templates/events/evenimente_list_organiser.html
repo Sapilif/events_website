@@ -1,0 +1,64 @@
+{% extends 'events/base.html' %}
+{% block content %}
+<center><h2 class="display-6">Evenimentele mele</h2></center>
+<br/>
+{% load static %}
+<link rel="stylesheet" href="{% static 'style_for_evenimente_list.css' %}">
+{% for eveniment in evenimente_list_organiser %}
+<div class="stilizare">
+  <div class="card mb-3" style="max-width: 1300px;">
+    <div class="shadow bg-body rounded">
+      <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center">
+          {% if eveniment.eveniment_image %}
+          <img src="{{ eveniment.eveniment_image.url }}" class="img-fluid rounded-start" alt="...">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <center>
+              <h2 class="display-6">{{ eveniment.name }}</h2>
+            </center>
+            <br/>
+            <p class="lead">Data: {{ eveniment.eveniment_date }} &nbsp; &#9615; &nbsp; Locatie: {{ eveniment.location }} </p>
+            <p class="lead">Pret bilet: {{ eveniment.ticket_price }} RON</p>
+            {% if eveniment.tickets == '0' %}
+            <p class="lead">Numar bilete ramase: {{ eveniment.tickets }}
+              <strong> &nbsp; &nbsp;  &#9886; SOLD OUT! &#9887; </strong>
+            </p>
+            {% else %}
+            <p class="lead">Numar bilete ramase: {{ eveniment.tickets }}</p>
+            {% endif %}
+            <center>
+              <div class="d-grid gap-2 d-md-block">
+                <a href="{% url 'show-eveniment' eveniment.id %}" class="btn btn-outline-secondary">Acceseaza pagina eveniment</a>
+                <a href="{% url 'delete-event' eveniment.id %}" class="btn btn-outline-danger">Sterge eveniment</a>
+                <a href="{% url 'update-event' eveniment.id %}" class="btn btn-outline-dark">Actualizeaza eveniment</a>
+              </div>
+            </center>
+          </div>
+        </div>
+      </div>
+      {% if eveniment.predicted == True %}
+      <div class="row g-0">
+        <div class="col-md-4 d-flex align-items-center">
+          {% if eveniment.prediction_image %}
+          <img src="{{ eveniment.prediction_image.url }}" class="img-fluid rounded-start" alt="..." style="max-width: 430px;">
+          {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <center>
+              <h2 class="display-6">Predictia vanzarii biletelor</h2>
+            </center>
+            <br/><br/>
+            <p class="card-text">{{ eveniment.prediction_text }}</p>
+          </div>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endfor %}
+{% endblock %}

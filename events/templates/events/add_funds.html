@@ -1,0 +1,156 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+<center><h2 class="display-6">Adauga fonduri in portofelul tau</h2></center>
+<br/>
+<!-- Credit card form -->
+<form action="{% url 'add-funds' %}" method="POST">
+  {% csrf_token %}
+  <section>
+    <div class="row">
+      <div class="col-md-8 mb-4">
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Detalii pentru facturare</h5>
+          </div>
+          <div class="card-body">
+            <form>
+              <!-- 2 column grid layout with text inputs for the first and last names -->
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" placeholder="Prenume" id="form6Example1" class="form-control" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" placeholder="Nume" id="form6Example2" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <!-- Text input -->
+              <div class="form-outline mb-4">
+                <input type="text" placeholder="Judet" id="form6Example4" class="form-control" />
+              </div>
+              <!-- Text input -->
+              <div class="form-outline mb-4">
+                <input type="text" placeholder="Oras" id="form6Example5" class="form-control" />
+              </div>
+              <!-- Text input -->
+              <div class="form-outline mb-4">
+                <input type="text" placeholder="Adresa" id="form6Example6" class="form-control" />
+              </div>
+              <!-- Email input -->
+              <div class="form-outline mb-4">
+                <input type="email" placeholder="Email" id="form6Example7" class="form-control" />
+              </div>
+              <!-- Number input -->
+              <div class="form-outline mb-4">
+                <input type="text" placeholder="Telefon" id="form6Example8" class="form-control" />
+              </div>
+              <!-- Number input -->
+              <div class="form-outline mb-4">
+                <input type="text" placeholder="In valoare de cati RON doresti fonduri?" name="funds" id="form6Example9" class="form-control" />
+              </div>
+              <hr class="my-4" />
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="checkoutForm1" />
+                <label class="form-check-label" for="checkoutForm1">
+                  Sunt de acord cu Termenii si Conditiile
+                </label>
+              </div>
+              <div class="form-check mb-4">
+                <input class="form-check-input" type="checkbox" value="" id="checkoutForm2" />
+                <label class="form-check-label" for="checkoutForm2">
+                  Salveaza aceste informatii pentru data viitoare
+                </label>
+              </div>
+              <hr class="my-4" />
+              <h5 class="mb-4">Metoda de plata:</h5>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkoutForm3"
+                checked />
+                <label class="form-check-label" for="checkoutForm3">
+                  Card de credit
+                </label>
+              </div>
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="flexRadioDefault" id="checkoutForm4" />
+                <label class="form-check-label" for="checkoutForm4">
+                  Card de debit
+                </label>
+              </div>
+              <br/>
+              <div class="row mb-4">
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" placeholder="Numele de pe card" id="formNameOnCard" class="form-control" />
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-outline">
+                    <input type="text" placeholder="Numarul cardului" id="formCardNumber" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <div class="row mb-4">
+                <div class="col-3">
+                  <div class="form-outline">
+                    <input type="text" placeholder="Data expirare card" id="formExpiration" class="form-control" />
+                  </div>
+                </div>
+                <div class="col-3">
+                  <div class="form-outline">
+                    <input type="text" placeholder="CVV" id="formCVV" class="form-control" />
+                  </div>
+                </div>
+              </div>
+              <center><button class="btn btn-success btn-lg btn-block" type="submit">
+                Cumpara fonduri
+              </button></center>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4 mb-4">
+        <div class="card mb-4">
+          <div class="card-header py-3">
+            <h5 class="mb-0">Profilul meu</h5>
+          </div>
+          <div class="card-body">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Username: {{ user.username }}
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Nume: {{ user.last_name }}
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Prenume: {{ user.first_name }}
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center px-0">
+                Email: {{ user.email }}
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center border-0 px-0 mb-3">
+                <div>
+                  <br/><strong>Fonduri disponibile:</strong>
+                </div>
+                <span><strong>{{ appUser.funds }} Lei</strong></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</form>
+<!-- Credit card form -->
+
+
+{% endblock %}
+
+
+
+
+
+

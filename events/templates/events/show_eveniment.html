@@ -1,0 +1,63 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+
+	<div class="container">
+		<div class="text-center">
+			<center><h2 class="display-6">Esti pe cale sa mergi la {{ eveniment.name }}! A mai ramas doar un pas!</h2></center>
+		</div>
+		{% if submitted %}
+			<div class="alert alert-success" role="alert">
+				Succes!
+			</div>
+		{% else %}
+			<div class="row justify-content-center">
+				<div class="col-md-7">
+					<hr class="border border-dark border-2 opacity-100">
+					{% if eveniment.eveniment_image %}
+						<img src="{{ eveniment.eveniment_image.url }}" class="img-fluid rounded-start" alt="...">
+					{% endif %}
+					<hr class="border border-dark border-2 opacity-100">
+					<br/>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-9">
+				<p class="lead">{{ eveniment.description }}</p>
+				<hr class="border border-dark border-2 opacity-100">
+				<p class="lead">Locatie: {{ eveniment.location }}</p>
+				<p class="lead">Pretul unui bilet: {{ eveniment.ticket_price }} RON</p>
+				<p class="lead">Data evenimentului: {{ eveniment.eveniment_date }}</p>
+				<p class="lead">Bilete disponibile ramase: {{ eveniment.tickets }}</p>
+				<hr class="border border-dark border-2 opacity-100">
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-9">
+
+        {% if eveniment.tickets == '0' %}
+        <center><p><h4>SOLD OUT!</h4></p></center>
+        {% else %}
+        {% if user.is_authenticated %}
+					<p class="lead">Completeaza campurile de mai jos pentru a cumpara unul sau mai multe bilete la acest eveniment:</p>
+					<form class="lead" action="" method="POST">
+						{% csrf_token %}
+						{{ form.as_p }}
+						<hr class="border border-dark border-2 opacity-100">
+						<center><button type="submit" class="btn btn-secondary">Cumpara</button></center>
+						<br/>
+					</form>
+					{% else %}
+					<div class="container text-center">
+					<p class="lead">Trebuie sa fiti logat pentru a putea cumpara bilete la un eveniment!</p>
+					<p><a href="{% url 'login' %}" class="btn btn-outline-secondary">Mergi la pagina de login</a></p>
+					</div>
+					{% endif %}
+        {% endif %}
+				</div>
+			</div>
+		{% endif %}
+	</div>
+
+
+{% endblock %}

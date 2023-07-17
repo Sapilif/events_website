@@ -1,0 +1,32 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+{% if user.is_authenticated %}
+{% if appUser.role == "organiser" %}
+{% if eveniment.organiser == user %}
+
+<center><h2 class="display-6">Modifica evenimentul {{ eveniment.name }}</h2></center>
+<br/>
+{% if submitted %}
+Evenimentul tau a fost modificat cu succes!
+{% else %}
+
+<form class="lead" action ="" method=POST enctype="multipart/form-data">
+	{% csrf_token %}
+	{{ form.as_p }}
+	<br/>
+	<center><input type="submit" value="Actualizeaza eveniment" class="btn btn-secondary"></center>
+	<br/><br/><br/>
+</form>
+{% endif %}
+{% else %}
+<center><h2 class="display-6">Nu esti tu organizatorul evenimentului pe care incerci sa il modifici!</h2></center>
+{% endif %}
+{% else %}
+<center><h2 class="display-6">Trebuie ai rolul de organizator pentru a putea modifica un eveniment!</h2></center>
+{% endif %}
+{% else %}
+<center><h2 class="display-6">Trebuie sa fi conectat pentru a putea modifica un eveniment!</h2></center>
+{% endif %}
+
+{% endblock %}

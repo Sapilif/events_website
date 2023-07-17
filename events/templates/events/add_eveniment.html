@@ -1,0 +1,23 @@
+{% extends 'events/base.html' %}
+
+{% block content %}
+  <center>
+    <h2 class="display-6">Adauga un eveniment</h2>
+  </center>
+  <br/>
+  {% if submitted %}
+    <center>
+      <h2 class="display-6">Evenimentul tau a fost adaugat cu succes!</h2>
+    </center>
+  {% else %}
+    <form class="lead" action="" method="POST" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <br/>
+      <center>
+        <input type="submit" value="Adauga eveniment" class="btn btn-secondary">
+      </center>
+      <br/><br/><br/>
+    </form>
+  {% endif %}
+{% endblock %}
